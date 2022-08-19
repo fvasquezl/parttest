@@ -18,7 +18,8 @@ class KitController extends Controller
      */
     public function index()
     {
-        return view('kits.index');
+        $kits = Kit::all();
+        return view('kits.index',compact('kits'));
     }
 
     /**
