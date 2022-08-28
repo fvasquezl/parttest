@@ -48,8 +48,7 @@
           </tbody>
       </table>
 
-{{--      <iframe id="printf" name="printf" style="visibility: hidden;" src="about:blank"></iframe>--}}
-<iframe id="printf" name="printf"  style="visibility: hidden;" src="about:blank"></iframe>
+<iframe id="printf" name="printf"   src="about:blank"></iframe>
 
 
   <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -65,11 +64,8 @@
             let url = "{{route('print',':id')}}"
             url = url.replace(':id',id);
             document.getElementById('printf').src = url;
-
         });
-
     });
-
 
 </script>
 </body>
