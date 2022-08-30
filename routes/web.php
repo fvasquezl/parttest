@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BoxController;
 use App\Http\Controllers\FillController;
+use App\Http\Controllers\ValidateController;
 use App\Http\Controllers\KitController;
 use App\Http\Controllers\PartController;
 use App\Http\Controllers\PartKitController;
@@ -30,4 +31,10 @@ Route::get('/parts_kits/{part}/{kit}/edit',[PartKitController::class,'edit']);
 
 Route::get('/print/{kit}', [PrintController::class,'show'])->name('print');
 
+
 Route::resource('/fill', FillController::class);
+
+Route::post('/validate/box-kits', [ValidateController::class,'box_kits']);
+
+//Route::post('/validate/box', [ValidateController::class,'box']);
+//Route::post('/validate/kit', [ValidateController::class,'kit']);

@@ -26,38 +26,45 @@
     }
 
     async function getData(value){
-        let url
-        if (kits.length === 0){
-            url = 'http://test.test/box/'+value
-        }else {
-            url = 'http://test.test/kits/'+value
-        }
-
-        const response = await fetch(url,{
-            method: 'GET',
+        const response = await fetch('http://test.test/validate/box-kits',{
+            method: 'POST',
+            body: JSON.stringify({data:value}),
             headers:headers
         })
+
         const data = await response.json()
-        const {id,created_at} = data
+        console.log(data)
+        const {id,type,created_at} = data
         if(!id){
             document.getElementById('message').innerHTML = 'errror'
         }else {
-            if(i===0){
-                box.id = id
-                box.created_at = created_at
-            }else{
-                if (id === box.id && created_at === box.created_at){
-                    document.getElementById('message').innerHTML = 'submit'
+            if(i===0 && type !== 'box'){
+                document.getElementById('message').innerHTML = 'first scan a box'
+            }else {
+                if (i === 1 && type === 'box') {
+                    document.getElementById('message').innerHTML = 'Need add kits'
+                }else{
+                    if (i >= 2 && id === box.id && created_at === box.created_at && type === 'box') {
+                        document.getElementById('message').innerHTML = 'submit'
+                    }else{
+                        if (i === 0 && type === 'box') {
+                            box.id = id
+                            box.created_at = created_at
+                            document.getElementById('message').innerHTML = 'Box ' + box.id
+                            i++
+                        } else {
+                            kits[i] = Object.create(kit)
+                            kits[i].id = id
+                            kits[i].created_at = created_at
+                            document.getElementById('message').innerHTML = 'Kit ' + kits[i].id
+                            i++
+                        }
+                    }
                 }
-
-                kits[i]= Object.create(kit)
-                kits[i].id = id
-                kits[i].created_at = created_at
             }
-            i++
-            document.getElementById('el').value = ''
-            document.getElementById('el').focus()
         }
+        document.getElementById('el').value = ''
+        document.getElementById('el').focus()
     }
 
 

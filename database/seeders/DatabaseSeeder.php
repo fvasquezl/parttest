@@ -17,6 +17,10 @@ class DatabaseSeeder extends Seeder
         $this->call(CategorySeeder::class);
         $this->call(SubCategorySeeder::class);
         $this->call(PartReferenceSeeder::class);
+        $this->call(KitSeeder::class);
+        $this->call(BoxSeeder::class);
+
+
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
