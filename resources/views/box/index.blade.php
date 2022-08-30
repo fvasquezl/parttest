@@ -40,7 +40,8 @@
         let myValue = e.target.value;
         if (e.key === "Enter") {
             if (myValue){
-                if(elements.length === 1){
+                if(elements.length <= 1){
+                    // console.log('validate box if validate continue if not ')
                     if(elements.includes(myValue)){
                         console.log('have a box-- s',box)
                         box = myValue

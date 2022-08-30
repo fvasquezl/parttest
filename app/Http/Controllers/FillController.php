@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreBoxRequest;
-use App\Http\Requests\UpdateBoxRequest;
-use App\Models\Box;
 use Illuminate\Http\Request;
 
-class BoxController extends Controller
+class FillController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +13,7 @@ class BoxController extends Controller
      */
     public function index()
     {
-        return view('box.index');
+        return view('fill.index');
     }
 
     /**
@@ -32,39 +29,32 @@ class BoxController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreBoxRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-
-        $box = new Box;
-        $box->save();
-
-        if($request->json()){
-            return $box;
-        }
-//        return back()->with('success', 'yeees',);
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Box  $box
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Box $box)
+    public function show($id)
     {
-        return $box;
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Box  $box
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Box $box)
+    public function edit($id)
     {
         //
     }
@@ -72,11 +62,11 @@ class BoxController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateBoxRequest  $request
-     * @param  \App\Models\Box  $box
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateBoxRequest $request, Box $box)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -84,10 +74,10 @@ class BoxController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Box  $box
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Box $box)
+    public function destroy($id)
     {
         //
     }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BoxController;
+use App\Http\Controllers\FillController;
 use App\Http\Controllers\KitController;
 use App\Http\Controllers\PartController;
 use App\Http\Controllers\PartKitController;
@@ -28,3 +29,5 @@ Route::resource('/box', BoxController::class);
 Route::get('/parts_kits/{part}/{kit}/edit',[PartKitController::class,'edit']);
 
 Route::get('/print/{kit}', [PrintController::class,'show'])->name('print');
+
+Route::resource('/fill', FillController::class);

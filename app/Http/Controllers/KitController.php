@@ -73,7 +73,7 @@ class KitController extends Controller
      */
     public function show(kit $kit)
     {
-        //
+        return $kit;
     }
 
     /**
