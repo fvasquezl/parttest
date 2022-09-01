@@ -35,6 +35,8 @@ Route::get('/print/{kit}', [PrintController::class,'show'])->name('print');
 Route::resource('/fill', FillController::class);
 
 Route::post('/validate/box-kits', [ValidateController::class,'box_kits']);
+Route::post('/validate/box', [ValidateController::class,'box']);
+Route::post('/validate/kit', [ValidateController::class,'kit']);
 
 //Route::post('/validate/box', [ValidateController::class,'box']);
 //Route::post('/validate/kit', [ValidateController::class,'kit']);

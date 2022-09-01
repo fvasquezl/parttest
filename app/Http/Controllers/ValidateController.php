@@ -24,38 +24,36 @@ class ValidateController extends Controller
             'false'
         );
     }
-    public function box($data)
+    public function box(Request $request)
     {
-        $box = Box::whereName($data)->first();
+        $box = Box::whereName($request->data)->first();
         if ($box){
             return response()->json([
                 'id' => $box->id,
-                'type' => 'box',
-                'created_at' => $box->created_at
+                'name' => $box->name,
             ]);
         }
 
         return response()->json(
-             'false'
+            'The Box doesnt exists'
         );
 
 
     }
 
 
-    public function kit($data)
+    public function kit(Request $request)
     {
-        $kit = Kit::whereName($data)->first();
+        $kit = Kit::whereName($request->data)->first();
         if ($kit){
             return response()->json([
                 'id' => $kit->id,
-                'type' => 'kit',
-                'created_at' => $kit->created_at
+                'name' => $kit->name,
             ]);
         }
 
         return response()->json(
-            'false'
+            'The Kit doesnt exists'
         );
     }
 

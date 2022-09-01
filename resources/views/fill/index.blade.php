@@ -25,69 +25,52 @@
         "X-CSRF-TOKEN": token
     }
 
-    async function getData(value){
-        const response = await fetch('http://test.test/validate/box-kits',{
-            method: 'POST',
-            body: JSON.stringify({data:value}),
-            headers:headers
-        })
-
-        const data = await response.json()
-        console.log(data)
-        const {id,type,created_at} = data
-        if(!id){
-            document.getElementById('message').innerHTML = 'errror'
-        }else {
-            if(i===0 && type !== 'box'){
-                document.getElementById('message').innerHTML = 'first scan a box'
-            }else {
-                if (i === 1 && type === 'box') {
-                    document.getElementById('message').innerHTML = 'Need add kits'
-                }else{
-                    if (i >= 2 && id === box.id && created_at === box.created_at && type === 'box') {
-                        document.getElementById('message').innerHTML = 'submit'
-                    }else{
-                        if (i === 0 && type === 'box') {
-                            box.id = id
-                            box.created_at = created_at
-                            document.getElementById('message').innerHTML = 'Box ' + box.id
-                            i++
-                        } else {
-                            kits[i] = Object.create(kit)
-                            kits[i].id = id
-                            kits[i].created_at = created_at
-                            document.getElementById('message').innerHTML = 'Kit ' + kits[i].id
-                            i++
-                        }
-                    }
-                }
-            }
-        }
-        document.getElementById('el').value = ''
-        document.getElementById('el').focus()
+    function sleep(ms,data) {
+        return new Promise(resolve => setTimeout(resolve, ms));
     }
 
+    async function getBoxData(value,url){
+        try{
+            const response = await fetch(`${url}`,{
+                method: 'POST',
+                    body: JSON.stringify({data:value}),
+                    headers:headers
+            });
+            const data = await response.json();
+            return data
+        }
+        catch(err) {
+            console.log(err);
+        }
+    }
 
-    const box = {
-        id:null,
-        created_at:null
-    };
-    const kit = {
-        id:null,
-        created_at:null
-    };
-
-
-    const kits =[]
-    let i=0
-
-
+    let myBox={}
+    let kits=[]
     document.querySelector('input[name="el"]').addEventListener("keyup", (e) => {
         let myValue = e.target.value;
         if (e.key === "Enter") {
+
             getKitData()
             async function getKitData() {
-                await getData(myValue)
+                if(!myBox.id && kits.length < 1)
+                    await getBoxData(myValue,'/validate/box').then(
+                        data => {
+                            myBox = {'id':data.id,'name':data.name}
+                        }
+                    );
+                else{
+                    if (myValue !== myBox.name){
+                        if (!kits.some(code => code.name === myValue)){
+                            await getBoxData(myValue,'/validate/kit').then(
+                                data => {
+                                    kits.push({'id':data.id,'name':data.name})
+                                }
+                            );
+                        }
+                    }else{
+                        console.log('submit form')
+                    }
+                }
             }
         }
     });
